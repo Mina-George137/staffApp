@@ -115,7 +115,7 @@ const signin = async (req, res) => {
       res.status(404).json({ status: "fail", message: "Incorrect email or password" });
     } else {
       let token = jwt.sign({ id: user._id, isLoggedIn: true }, process.env.JWTKEY);
-      res.status(200).json({ status: "success", data: token });
+      res.status(200).json({ status: "success",token: token, data: user });
     }  
   } catch (error) {
     res.status(404).json({ status: "fail", message: error.message });

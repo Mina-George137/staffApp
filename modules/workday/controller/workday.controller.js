@@ -69,6 +69,9 @@ const getWorkHistory = async (req, res) => {
             let workdays = []
             if(monthToRetrieve == 0){
                 workdays = await workdayModel.find({userId:user._id});
+                if(workdays.length == 0){
+                    res.status(404).json({status:"fail", message:"No workdays found"});
+                }
                 res.status(200).json({status:"success", data:workdays});
             }else{
                 // get the workhistory by id and monthToRetrieve
@@ -80,6 +83,9 @@ const getWorkHistory = async (req, res) => {
                         },
                     },
                 ]);
+                if(workdays.length == 0){
+                    res.status(404).json({status:"fail", message:"No workdays found"});
+                }
                 let monthBalance = 0;
                 workdays.forEach(workday => {
                     monthBalance += workday.balance;
